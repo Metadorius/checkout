@@ -798,13 +798,14 @@ class GitCommandManager {
     submoduleUpdate(fetchDepth, recursive, submoduleDirectories) {
         return __awaiter(this, void 0, void 0, function* () {
             const args = ['-c', 'protocol.version=2'];
-            args.push('submodule', 'update', '--init', '--force', ...submoduleDirectories);
+            args.push('submodule', 'update', '--init', '--force');
             if (fetchDepth > 0) {
                 args.push(`--depth=${fetchDepth}`);
             }
             if (recursive) {
                 args.push('--recursive');
             }
+            args.push(...submoduleDirectories)
             yield this.execGit(args);
         });
     }

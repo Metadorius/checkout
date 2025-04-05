@@ -419,13 +419,7 @@ class GitCommandManager {
     submoduleDirectories: string[]
   ): Promise<void> {
     const args = ['-c', 'protocol.version=2']
-    args.push(
-      'submodule',
-      'update',
-      '--init',
-      '--force',
-      ...submoduleDirectories
-    )
+    args.push('submodule', 'update', '--init', '--force')
     if (fetchDepth > 0) {
       args.push(`--depth=${fetchDepth}`)
     }
@@ -433,6 +427,8 @@ class GitCommandManager {
     if (recursive) {
       args.push('--recursive')
     }
+
+    args.push(...submoduleDirectories)
 
     await this.execGit(args)
   }
